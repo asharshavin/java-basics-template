@@ -1,5 +1,9 @@
 package com.epam.izh.rd.online.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 public class SimpleMathService implements MathService {
 
     /**
@@ -13,7 +17,15 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int compare(int value1, int value2) {
-        return -2;
+
+        if (value1==value2) {
+            return 0;
+        } else if (value1<value2){
+            return -1;
+        } else {
+            return 1;
+        }
+
     }
 
     /**
@@ -22,7 +34,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int value1, int value2) {
-        return -1;
+
+        if (value1<value2) {
+            return value2;
+        } else {
+            return value1;
+        }
+
     }
 
     /**
@@ -31,7 +49,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int[] values) {
-        return -1;
+
+        int maxValue = Integer.MIN_VALUE;
+        for (int value: values) {
+            maxValue = maxFrom(maxValue, value);
+        }
+        return maxValue;
     }
 
     /**
@@ -40,7 +63,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int sum(int[] values) {
-        return -1;
+
+        int sumValue = 0;
+        for (int value: values) {
+            sumValue += value;
+        }
+        return sumValue;
+
     }
 
     /**
@@ -49,7 +78,17 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] getEvenDigits(int[] values) {
-        return new int[]{};
+
+        int[] resArray = new int[values.length];
+        int count = 0;
+
+        for (int value: values) {
+            if (value%2==0){
+                resArray[count++]=value;
+            }
+        }
+
+        return Arrays.copyOf(resArray, count) ;
     }
 
     /**
@@ -59,7 +98,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFactorial(int initialVal) {
-        return -1L;
+
+        long result = 1;
+        for (int i=1;i<=initialVal;i++){
+            result*=i;
+        }
+        return result;
+
     }
 
     /**
@@ -74,7 +119,18 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFibonacci(int number) {
-        return -1L;
+
+        long result = 0;
+        long last = 1;
+        long _temp = 0;
+
+        for (int i=1;i<=number;i++){
+            _temp = result;
+            result += last;
+            last = _temp;
+        }
+        return result;
+
     }
 
     /**
@@ -83,7 +139,27 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        return new int[]{};
+
+//        int last = values.length;
+//
+//        for ( boolean sorted = last == 0; !sorted; --last )
+//        {
+//            sorted = true;
+//            for ( int i = 1; i < last; ++i )
+//            {
+//                if ( values[i-1] < values[i] )
+//                {
+//                    sorted = false;
+//
+//                    int tmp = values[i-1];
+//                    values[i-1] = values[i];
+//                    values[i] = tmp;
+//                }
+//            }
+//        }
+        Arrays.sort(values);
+        return values;
+
     }
 
     /**
@@ -94,7 +170,14 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public boolean isPrimary(int number) {
-        return false;
+
+        boolean result = true;
+        for (int i = 2; i < number; i++) {
+            if (number % i == 0) {
+                result = false;
+            }
+        }
+        return result;
     }
 
     /**
@@ -104,6 +187,15 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] reverseArray(int[] values) {
-        return new int[]{};
+
+        int length = values.length;
+        int[] resArray = new int[length];
+
+        for(int i=0;i<length;i++) {
+            resArray[length-1-i] = values[i];
+        }
+
+        return resArray;
+
     }
 }
